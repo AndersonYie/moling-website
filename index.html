@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOLINGBIKES | 懋綸 ─ 自行車設計與全方位解決方案</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0f18;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --teal-glow: #20b2aa;
+            --teal-hover: #179e97;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0f18 0%, #121a2a 100%);
+            color: var(--text-primary);
+            font-family: 'Noto Sans TC', 'Montserrat', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 導覽列與中英文切換 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 15, 24, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+
+        .logo-area img {
+            height: 40px;
+            width: auto;
+        }
+
+        .lang-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: var(--teal-glow);
+            border-color: var(--teal-glow);
+            box-shadow: 0 0 15px rgba(32, 178, 170, 0.4);
+        }
+
+        /* 英雄主視覺區 (Hero Section) */
+        .hero {
+            padding: 160px 5% 80px 5%;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #ffffff, var(--teal-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero .slogan {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        /* 毛玻璃容器通用樣式 */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 公司簡介區區塊樣式 */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+            color: #ffffff;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 40px;
+            height: 3px;
+            background: var(--teal-glow);
+            border-radius: 2px;
+        }
+
+        .about-text {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 35px;
+            text-align: justify;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .service-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(32, 178, 170, 0.3);
+        }
+
+        .service-item h4 {
+            color: var(--teal-glow);
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .service-item ul {
+            list-style: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .service-item ul li {
+            margin-bottom: 6px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .service-item ul li::before {
+            content: '▪';
+            position: absolute;
+            left: 0;
+            color: var(--teal-glow);
+        }
+
+        /* 產品展示區 Grid 佈局 */
+        .product-section-header {
+            margin: 40px 0 25px 0;
+            border-left: 4px solid var(--teal-glow);
+            padding-left: 15px;
+        }
+
+        .product-section-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(32, 178, 170, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(32, 178, 170, 0.1);
+        }
+
+        .product-img-wrapper {
+            width: 100%;
+            padding-top: 75%; /* 4:3 比例 */
+            position: relative;
+            background: rgba(255, 255, 255, 0.01);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .product-img-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* 確保 3D 去背渲染圖完整呈現不被切到 */
+            padding: 15px;
+        }
+
+        .product-info {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .product-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .features-list {
+            list-style: none;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 12px;
+        }
+
+        .features-list li {
+            margin-bottom: 6px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--teal-glow);
+            font-weight: bold;
+        }
+
+        /* 頁尾與名片聯絡圈 */
+        footer {
+            background: rgba(5, 8, 14, 0.9);
+            border-top: 1px solid var(--border-color);
+            padding: 60px 5% 40px 5%;
+            text-align: center;
+        }
+
+        .footer-logo {
+            height: 35px;
+            margin-bottom: 15px;
+        }
+
+        .footer-slogan {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 35px;
+        }
+
+        .contact-box {
+            max-width: 400px;
+            margin: 0 auto 40px auto;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 8px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card-link-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--teal-glow);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 35px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(32, 178, 170, 0.3);
+            width: 100%;
+        }
+
+        .card-link-btn:hover {
+            background: var(--teal-hover);
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(32, 178, 170, 0.5);
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        /* 手機響應式 RWD 面板優化 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero .slogan { font-size: 1rem; }
+            .glass-card { padding: 25px; }
+            .hero { padding-top: 120px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <img src="moling-logo.png" alt="MOLINGBIKES">
+        </div>
+        <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">EN</button>
+    </header>
+
+    <div class="hero">
+        <h1 id="heroTitle">MOLINGBIKES</h1>
+        <p class="slogan" id="heroSlogan">專業自行車設計 ‧ 全方位解決方案</p>
+
+        <div class="glass-card" style="text-align: left;">
+            <h2 class="section-title" id="aboutTitle">公司簡介</h2>
+            <p class="about-text" id="aboutText">
+                MOLING 專注於自行車與電動輔助自行車（eBike）產品開發，提供從概念設計、機構開發、整車整合到量產導入的一站式工程服務。我們結合多年產業經驗與實務開發能力，協助品牌客戶快速將創意轉化為具市場競爭力的產品。
+            </p>
+
+            <h2 class="section-title" id="serviceTitle">我們的服務</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <h4 id="srv1Title">■ 整車開發</h4>
+                    <ul id="srv1List">
+                        <li>eBike 整車設計</li>
+                        <li>Cargo Bike 與特殊車種開發</li>
+                        <li>車架幾何規劃與騎乘優化</li>
+                        <li>系統整合與功能驗證</li>
+                    </ul>
+                </div>
+                <div class="service-item">
+                    <h4 id="srv2Title">■ 零件與配件開發</h4>
+                    <ul id="srv2List">
+                        <li>塑膠件與射出件設計</li>
+                        <li>鈑金、鋁件及結構件開發</li>
+                        <li>泥除、貨架、照明配件設計</li>
+                        <li>客製化產品開發</li>
+                    </ul>
+                </div>
+                <div class="service-item">
+                    <h4 id="srv3Title">■ 工程與量產支援</h4>
+                    <ul id="srv3List">
+                        <li>3D CAD 設計與工程圖建立</li>
+                        <li>DFMEA 與可靠度評估</li>
+                        <li>樣品製作與測試改善</li>
+                        <li>供應鏈整合與量產導入</li>
+                    </ul>
+                </div>
+                <div class="service-item">
+                    <h4 id="srv4Title">■ 法規與認證支援</h4>
+                    <ul id="srv4List">
+                        <li>EN 15194 eBike 法規</li>
+                        <li>EN 17860 Cargo Bike 法規</li>
+                        <li>產品測試規劃</li>
+                        <li>技術文件與認證準備</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-section-header" style="text-align: left;">
+            <h3 id="sectionVehicles">整車研發與車架設計 (E-Bike Solutions)</h3>
+        </div>
+        
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="frame01.jpg" alt="Agri-Utility Cargo E-Bike"></div>
+                <div class="product-info">
+                    <div class="product-title" id="p1Title">農業專用載重型電輔自行車</div>
+                    <div class="product-desc" id="p1Desc">專為現代農業與戶外崎嶇地形打造的專業級電輔自行車。</div>
+                    <ul class="features-list" id="p1Feat">
+                        <li>雙電池系統，大幅提升續航里程</li>
+                        <li>寬幅大輪胎，完美征服泥濘路面</li>
+                        <li>專利高效後避震載貨結構，避免貨物彈跳</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="frame02.jpg" alt="Compact Urban Cargo E-Bike"></div>
+                <div class="product-info">
+                    <div class="product-title" id="p2Title">輕量化多功能都會電輔馱負車</div>
+                    <div class="product-desc" id="p2Desc">兼具極簡美學與高實用性的輕型都會載重車，滿足多元載配需求。</div>
+                    <ul class="features-list" id="p2Feat">
+                        <li>內嵌半隱藏式電池，維持極簡俐落外觀</li>
+                        <li>高彈性多功能後平台，方便載小孩或載貨</li>
+                        <li>前大後小黃金雙輪徑，兼顧跨越與低重心穩定</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="frame03.jpg" alt="Lite Long John E-Cargo Bike"></div>
+                <div class="product-info">
+                    <div class="product-title" id="p3Title">輕巧型前載式電輔馱負車</div>
+                    <div class="product-desc" id="p3Desc">專為都會敏捷穿梭設計的輕量化 Long John 車款，具備絕佳靈活性。</div>
+                    <ul class="features-list" id="p3Feat">
+                        <li>高質感低重心前置木紋貨艙</li>
+                        <li>先進線控轉盤轉向系統 (Cable Steering)</li>
+                        <li>精巧幾何比例，保有單車般極致靈活操控</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="frame04.png" alt="Elegant Urban Step-Thru E-Bike"></div>
+                <div class="product-info">
+                    <div class="product-title" id="p4Title">都會休閒低跨點電輔自行車</div>
+                    <div class="product-desc" id="p4Desc">專為舒適城市漫遊與通勤打造的極簡風電輔車，全齡友善設計。</div>
+                    <ul class="features-list" id="p4Feat">
+                        <li>一體化整合式頭管燈，流線俐落</li>
+                        <li>友善低跨點車架結構 (Step-Thru)，輕鬆上下車</li>
+                        <li>極簡內斂全置內走線設計，盡顯都會美學</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="frame05.png" alt="Heavy-Duty Commercial Cargo E-Bike"></div>
+                <div class="product-info">
+                    <div class="product-title" id="p5Title">重型商務馱負電輔車 ─ 城市綠色調撥車</div>
+                    <div class="product-desc" id="p5Desc">智慧城市微交通低碳營運的終極載重車，共享單車高效補給方案。</div>
+                    <ul class="features-list" id="p5Feat">
+                        <li>商務級高強度後平台，一次穩固裝載 7 輛單車</li>
+                        <li>車架經 FEA 精密結構強化，極限重載下高抗扭剛性</li>
+                        <li>極佳窄巷穿梭能力，綠色城市 ESG 永續物流指標</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-section-header" style="text-align: left;">
+            <h3 id="sectionAccs">自行車配件與創新研發 (Components & Innovations)</h3>
+        </div>
+
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="Projects08.png" alt="Smart Bluetooth Helmet"></div>
+                <div class="product-info">
+                    <div class="product-title" id="p8Title">藍牙智能前瞻安全帽</div>
+                    <div class="product-desc" id="p8Desc">整合防護、通訊與空力的智慧人身裝備。</div>
+                    <ul class="features-list" id="p8Feat">
+                        <li>內嵌高質感抗噪麥克風與微型揚聲器</li>
+                        <li>支援穩定雙向藍牙通話系統</li>
+                        <li>流線型一體前風鏡與高識別度夜間尾燈</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="Projects01.jpg" alt="Foldable Helmet"></div>
+                <div class="product-info">
+                    <div class="product-title" id="p6Title">一體成型專利折疊安全帽</div>
+                    <div class="product-desc" id="p6Desc">首創一體成型專利折疊結構，商務便攜首選。</div>
+                    <ul class="features-list" id="p6Feat">
+                        <li>通過國際嚴格 CPSC 與 CE 雙重安全認證</li>
+                        <li>輕量化 PC+EPS 材質搭配 18 孔高效通風</li>
+                        <li>配備嵌入式 LED 安全尾燈與可調式後鎖</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="Projects03.png" alt="Premium Smart Micro-Inflator"></div>
+                <div class="product-info">
+                    <div class="product-title" id="p7Title">商務旗艦款微型智慧電動充氣機</div>
+                    <div class="product-desc" id="p7Desc">懋綸專屬極簡科技美學，全地形騎行強悍後盾。</div>
+                    <ul class="features-list" id="p7Feat">
+                        <li>高精密數位胎壓感測螢幕與直覺介面</li>
+                        <li>配備高強度金屬扣緊環結構</li>
+                        <li>50 秒極速高效充氣至 80 PSI</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="Projects04.png" alt="Compact Everyday E-Inflator"></div>
+                <div class="product-info">
+                    <div class="product-title" id="p9Title">都會輕量級攜帶型電動充氣機 (E6B)</div>
+                    <div class="product-desc" id="p9Desc">兼具同等核心性能與鑽石切割幾何的極輕量充氣機。</div>
+                    <ul class="features-list" id="p9Feat">
+                        <li>50 秒極速高速打氣至 80 PSI 性能</li>
+                        <li>鑽石切割幾何外觀，省去扣緊環配置</li>
+                        <li>極致小巧便攜，專為日常通勤口袋收納設計</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="Projects09.png" alt="Wireless Cycling Speaker"></div>
+                <div class="product-info">
+                    <div class="product-title" id="p10Title">車載無線藍牙隨行喇叭</div>
+                    <div class="product-desc" id="p10Desc">專為戶外單車遠征開發的全天候高剛性揚聲器。</div>
+                    <ul class="features-list" id="p10Feat">
+                        <li>自帶高強度輕量化把手快拆固定夾具</li>
+                        <li>防潑水殼體與加大直覺控制面板</li>
+                        <li>極具穿透力的沉浸式全音域音質</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="Projects02.jpg" alt="Aerospace Titanium 3-Fold E-Bike"></div>
+                <div class="product-info">
+                    <div class="product-title" id="p11Title">航太級鈦合金三折電輔折疊車</div>
+                    <div class="product-desc" id="p11Desc">頂尖材料工藝結晶，極致剛性與極輕量化完美共存。</div>
+                    <ul class="features-list" id="p11Feat">
+                        <li>高難度航太級鈦合金精密魚鱗焊接</li>
+                        <li>專利 3 折疊超緊湊車架幾何結構</li>
+                        <li>優異的抗扭轉剛性與極致奢華路感</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="Projects05.png" alt="Integrated LED Aero Seatpost"></div>
+                <div class="product-info">
+                    <div class="product-title" id="p12Title">整合式安全座柱一體燈</div>
+                    <div class="product-desc" id="p12Desc">安全與整車一體化設計，消弭繁複的外部配件。</div>
+                    <ul class="features-list" id="p12Feat">
+                        <li>高亮度智慧 LED 尾燈完美無縫隱嵌於座管內</li>
+                        <li>支持空力管型與極簡內置電路整合</li>
+                        <li>極佳的全車一體俐落視覺感受</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="Projects06.png" alt="Ataraxy Ergo-Glide Saddle"></div>
+                <div class="product-info">
+                    <div class="product-title" id="p13Title">專利防痛微幅懸浮滑行坐墊</div>
+                    <div class="product-desc" id="p13Desc">專利人體工學懸浮分體結構，徹底解決跨下酸痛痛點。</div>
+                    <ul class="features-list" id="p13Feat">
+                        <li>隨騎乘踩踏動作產生微幅動態滑行調整</li>
+                        <li>極大幅度減輕長途騎乘時的坐骨壓力與摩擦</li>
+                        <li>人體工學減震設計 (Ataraxy)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="Projects07.png" alt="Custom Carbon Fiber Thru-Axle"></div>
+                <div class="product-info">
+                    <div class="product-title" id="p14Title">客製化高剛性碳纖維快拆軸心</div>
+                    <div class="product-desc" id="p14Desc">懋綸高端碳纖維複材工藝，極致輕量與剛性的融合。</div>
+                    <ul class="features-list" id="p14Feat">
+                        <li>長度、螺紋牙紋皆提供全面客製化量身打造</li>
+                        <li>極限輕量化的同時兼具賽車級抗扭轉強度</li>
+                        <li>高端碳纖維精密模壓製程</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <img src="moling-logo.png" alt="MOLING" class="footer-logo">
+        <p class="footer-slogan" id="footerSlogan">Product Development • Engineering • Integration<br>Creating Better Mobility Solutions</p>
+        
+        <div class="contact-box">
+            <a href="../anderson-card/index.html" class="card-link-btn" id="contactBtn">聯絡我們 / 數位名片 Contact Us</a>
+        </div>
+        <p class="copyright">© 2026 MOLINGBIKES. All Rights Reserved. Engineered by Moling.</p>
+    </footer>
+
+    <script>
+        let currentLang = 'zh';
+
+        const langData = {
+            zh: {
+                langBtn: 'EN',
+                heroSlogan: '專業自行車設計 ‧ 全方位解決方案',
+                aboutTitle: '公司簡介',
+                aboutText: 'MOLING 專注於自行車與電動輔助自行車（eBike）產品開發，提供從概念設計、機構開發、整車整合到量產導入的一站式工程服務。我們結合多年產業經驗與實務開發能力，協助品牌客戶快速將創意轉化為具市場競爭力的產品。',
+                serviceTitle: '我們的服務',
+                srv1Title: '■ 整車開發',
+                srv1List: '<li>eBike 整車設計</li><li>Cargo Bike 與特殊車種開發</li><li>車架幾何規劃與騎乘優化</li><li>系統整合與功能驗證</li>',
+                srv2Title: '■ 零件與配件開發',
+                srv2List: '<li>塑膠件與射出件設計</li><li>鈑金、鋁件及結構件開發</li><li>泥除、貨架、照明配件設計</li><li>客製化產品開發</li>',
+                srv3Title: '■ 工程與量產支援',
+                srv3List: '<li>3D CAD 設計與工程圖建立</li><li>DFMEA 與可靠度評估</li><li>樣品製作與測試改善</li><li>供應鏈整合與量產導入</li>',
+                srv4Title: '■ 法規與認證支援',
+                srv4List: '<li>EN 15194 eBike 法規</li><li>EN 17860 Cargo Bike 法規</li><li>產品測試規劃</li><li>技術文件與認證準備</li>',
+                sectionVehicles: '整車研發與車架設計 (E-Bike Solutions)',
+                sectionAccs: '自行車配件與創新研發 (Components & Innovations)',
+                contactBtn: '聯絡我們 ─ 易柏村的數位名片',
+                
+                p1Title: '農業專用載重型電輔自行車', p1Desc: '專為現代農業與戶外崎嶇地形打造的專業級電輔自行車。', p1Feat: '<li>雙電池系統，大幅提升續航里程</li><li>寬幅大輪胎，完美征服泥濘路面</li><li>專利高效後避震載貨結構，避免貨物彈跳</li>',
+                p2Title: '輕量化多功能都會電輔馱負車', p2Desc: '兼具極簡美學與高實用性的輕型都會載重車，滿足多元載配需求。', p2Feat: '<li>內嵌半隱藏式電池，維持極簡俐落外觀</li><li>高彈性多功能後平台，方便載小孩或載貨</li><li>前大後小黃金雙輪徑，兼顧跨越與低重心穩定</li>',
+                p3Title: '輕巧型前載式電輔馱負車', p3Desc: '專為都會敏捷穿梭設計的輕量化 Long John 車款，具備絕佳靈活性。', p3Feat: '<li>高質感低重心前置木紋貨艙</li><li>先進線控轉盤轉向系統 (Cable Steering)</li><li>精巧幾何比例，保有單車般極致靈活操控</li>',
+                p4Title: '都會休閒低跨點電輔自行車', p4Desc: '專為舒適城市漫遊與通勤打造的極簡風電輔車，全齡友善設計。', p4Feat: '<li>一體化整合式頭管燈，流線俐落</li><li>友善低跨點車架結構 (Step-Thru)，輕鬆上下車</li><li>極簡內斂全置內走線設計，盡顯都會美學</li>',
+                p5Title: '重型商務馱負電輔車 ─ 城市綠色調撥車', p5Desc: '智慧城市微交通低碳營運的終極載重車，共享單車高效補給方案。', p5Feat: '<li>商務級高強度後平台，一次穩固裝載 7 輛單車</li><li>車架經 FEA 精密結構強化，極限重載下高抗扭剛性</li><li>極佳窄巷穿梭能力，綠色城市 ESG 永續物流指標</li>',
+                
+                p8Title: '藍牙智能前瞻安全帽', p8Desc: '整合防護、通訊與空力的智慧人身裝備。', p8Feat: '<li>內嵌高質感抗噪麥克風與微型揚聲器</li><li>支援穩定雙向藍牙通話系統</li><li>流線型一體前風鏡與高識別度夜間尾燈</li>',
+                p6Title: '一體成型專利折疊安全帽', p6Desc: '首創一體成型專利折疊結構，商務便攜首選。', p6Feat: '<li>通過國際嚴格 CPSC 與 CE 雙重安全認證</li><li>輕量化 PC+EPS 材質搭配 18 孔高效通風</li><li>配備嵌入式 LED 安全尾燈與可調式後鎖</li>',
+                p7Title: '商務旗艦款微型智慧電動充氣機', p7Desc: '懋綸專屬極簡科技美學，全地形騎行強悍後盾。', p7Feat: '<li>高精密數位胎壓感測螢幕與直覺介面</li><li>配備高強度金屬扣緊環結構</li><li>50 秒極速高效充氣至 80 PSI</li>',
+                p9Title: '都會輕量級攜帶型電動充氣機 (E6B)', p9Desc: '兼具同等核心性能與鑽石切割幾何的極輕量充氣機。', p9Feat: '<li>50 秒極速高速打氣至 80 PSI 性能</li><li>鑽石切割幾何外觀，省去扣緊環配置</li><li>極致小巧便攜，專為日常通勤口袋收納設計</li>',
+                p10Title: '車載無線藍牙隨行喇叭', p10Desc: '專為戶外單車遠征開發的全天候高剛性揚聲器。', p10Feat: '<li>自帶高強度輕量化把手快拆固定夾具</li><li>防潑水殼體與加大直覺控制面板</li><li>極具穿透力的沉浸式全音域音質</li>',
+                p11Title: '航太級鈦合金三折電輔折疊車', p11Desc: '頂尖材料工藝結晶，極致剛性與極輕量化完美共存。', p11Feat: '<li>高難度航太級鈦合金精密魚鱗焊接</li><li>專利 3 折疊超緊湊車架幾何結構</li><li>優異的抗扭轉剛性與極致奢華路感</li>',
+                p12Title: '整合式安全座柱一體燈', p12Desc: '安全與整車一體化設計，消弭繁複的外部配件。', p12Feat: '<li>高亮度智慧 LED 尾燈完美無縫隱嵌於座管內</li><li>支持空力管型與極簡內置電路整合</li><li>極佳的全車一體俐落視覺感受</li>',
+                p13Title: '專利防痛微幅懸浮滑行坐墊', p13Desc: '專利人體工學懸浮分體結構，徹底解決跨下酸痛痛點。', p13Feat: '<li>隨騎乘踩踏動作產生微幅動態滑行調整</li><li>極大幅度減輕長途騎乘時的坐骨壓力與摩擦</li><li>人體工學減震設計 (Ataraxy)</li>',
+                p14Title: '客製化高剛性碳纖維快拆軸心', p14Desc: '懋綸高端碳纖維複材工藝，極致輕量與剛性的融合。', p14Feat: '<li>長度、螺紋牙紋皆提供全面客製化量身打造</li><li>極限輕量化的同時兼具賽車級抗扭轉強度</li><li>高端碳纖維精密模壓製程</li>'
+            },
+            en: {
+                langBtn: '中文',
+                heroSlogan: 'Your Vision, Our Solution.',
+                aboutTitle: 'About MOLING',
+                aboutText: 'MOLING focuses on bicycle and electric-assist bicycle (eBike) product development, offering one-stop engineering services from conceptual design and mechanical innovation to complete bike integration and mass production. Combining extensive industry experience with practical development execution, we empower global brands to swiftly translate creative ideas into high-market-competitiveness mobility assets.',
+                serviceTitle: 'Our Services',
+                srv1Title: '■ Complete Bike Development',
+                srv1List: '<li>Full eBike Architecture & Design</li><li>Cargo Bike & Specialized Vehicle R&D</li><li>Frame Geometry Planning & Ride Tuning</li><li>System Integration & Functional Validation</li>',
+                srv2Title: '■ Component & Accessory R&D',
+                srv2List: '<li>Injection Molded & Plastic Part Engineering</li><li>Sheet Metal, Alloy & Structural Development</li><li>Fenders, Carriers, Lighting & Mudguard Integration</li><li>Bespoke Custom Component Innovation</li>',
+                srv3Title: '■ Engineering & Production Support',
+                srv3List: '<li>Comprehensive 3D CAD Modelling & Drafting</li><li>DFMEA, Design Validation & Reliability Metrics</li><li>Prototyping, Stress Testing & Structural Refinement</li><li>Supply Chain Orchestration & Industrialization Support</li>',
+                srv4Title: '■ Compliance & Certification',
+                srv4List: '<li>EN 15194 eBike Legal Standards Framework</li><li>EN 17860 E-Cargo Bike Compliance Strategy</li><li>Strategic Product Testing Protocols</li><li>Technical Documentation & Homologation Support</li>',
+                sectionVehicles: 'Vehicle Research & Frame Engineering',
+                sectionAccs: 'Bicycle Accessories & Advanced Innovations',
+                contactBtn: 'Contact Us ─ Anderson Yie’s Digital Card',
+                
+                p1Title: 'Agri-Utility Cargo E-Bike', p1Desc: 'Engineered specifically for agricultural demands and rugged off-road environments.', p1Feat: '<li>Dual-battery system maximizes mileage and working duration</li><li>High-volume fat tires offer exceptional muddy terrain traction</li><li>Specialized rear suspension structure absorbs impacts to protect cargo</li>',
+                p2Title: 'Compact Multi-Purpose Urban Cargo E-Bike', p2Desc: 'A perfect blend of minimalist aesthetics and everyday heavy-duty utility.', p2Feat: '<li>Semi-integrated sleek hidden battery geometry</li><li>Highly adaptable large rear platform for child seats or parcels</li><li>Mullet wheel setup ensures rollover performance and cargo low center of gravity</li>',
+                p3Title: 'Lite Long John E-Cargo Bike', p3Desc: 'A lightweight front-loading cargo bike engineered for responsive urban agility.', p3Feat: '<li>Premium wood-grain front cargo box with lower layout center</li><li>Precision high-responsiveness cable steering gear</li><li>Compact footprint delivering nimble, conventional bicycle handling</li>',
+                p4Title: 'Elegant Urban Step-Thru E-Bike', p4Desc: 'A minimalist tech-infused lifestyle e-bike tailored for universal cross-generation accessibility.', p4Feat: '<li>Sleek headlight seamlessly integrated into the head tube</li><li>Low step-thru frame configuration for easy mounting and dismounting</li><li>Fully internal cable routing captures clean modern styling</li>',
+                p5Title: 'Heavy-Duty Commercial Cargo E-Bike (Bike Feeder)', p5Desc: 'The ultimate zero-emissions fleet rebalancing heavy-cargo solution for smart cities.', p5Feat: '<li>Ultra-robust rear deck platform securely accommodates up to 7 shared bikes</li><li>Optimized via FEA structure analysis for heavy loads and high-rigidity tracking</li><li>Sustainable substitute for delivery vans within tight pedestrian corridors</li>',
+                
+                p8Title: 'Smart Bluetooth Helmet', p8Desc: 'An integrated aerodynamic head guard fusing safety and hands-free micro-comms.', p8Feat: '<li>Built-in noise-canceling microphone and premium micro-speakers</li><li>Supports ultra-stable dual-way Bluetooth intercom pairing</li><li>Streamlined wrap-around wind visor and high-visibility rear safety light</li>',
+                p6Title: 'Innovative Foldable Helmet (HM034L)', p6Desc: 'Patented space-saving one-piece foldable structural helmet.', p6Feat: '<li>Fully certified by international CPSC & CE safety benchmarks</li><li>Ultra-light PC+EPS composite frame with 18 aerodynamic airflow vents</li><li>Equipped with an adjustable retention ring and embedded LED running lights</li>',
+                p7Title: 'Premium Smart Micro-Inflator', p7Desc: 'Moling signature design digital inflation core for demanding remote expeditions.', p7Feat: '<li>High-precision digital tire-pressure monitoring module with simple UI</li><li>Heavy-duty metal securing collar link configuration</li><li>Blasts output from zero to 80 PSI effortlessly within 50 seconds</li>',
+                p9Title: 'Compact Everyday E-Inflator (E6B)', p9Desc: 'A high-affordability, lightweight, diamond-cut pocket inflator.', p9Feat: '<li>Identical high-efficiency core hitting 80 PSI in 50 seconds</li><li>Diamond-faceted shell profile without locking collar overhang</li><li>Pocket-sized blueprint for effortless urban commuting storage</li>',
+                p10Title: 'Wireless Cycling Speaker System', p10Desc: 'A ruggedized weather-proof Bluetooth audio module built for outdoor explorations.', p10Feat: '<li>Includes a heavy-duty light alloy handlebar quick-clamping kit</li><li>Water-resistant outer chassis paired with oversized tactile controls</li><li>Deep acoustic field delivery with crisp, penetrating sound values</li>',
+                p11Title: 'Aerospace Titanium 3-Fold E-Bike', p11Desc: 'Patented micro-folding frame displaying elite exotic metallurgy engineering.', p11Feat: '<li>Aerospace grade titanium tube TIG welding architecture</li><li>Patented 3-fold ultra-compact chassis configuration</li><li>Ultimate structural stiffness-to-weight index with exceptional damping feel</li>',
+                p12Title: 'Integrated LED Aero Seatpost', p12Desc: 'Fusing running lights into the component post frame to prevent accessory clutter.', p12Feat: '<li>High-output red light seamlessly fused inside the post frame</li><li>Supports aerodynamic profiles and interior internal wire management</li><li>Delivers refined minimalist rear-end aesthetic clean looks</li>',
+                p13Title: 'Ataraxy Ergo-Glide Pain-Free Saddle', p13Desc: 'Anatomically decoupled suspension platform relieving stress over long distances.', p13Feat: '<li>Chassis shifts dynamically alongside real-time pedaling ergonomics</li><li>Significantly mitigates ischial zone pressure and friction soreness</li><li>Patented split-wing vibration dampening layout (Ataraxy)</li>',
+                p14Title: 'Custom Carbon Fiber Thru-Axle Series', p14Desc: 'Absolute customization for precise lengths and thread pitches, bringing track-level structural stiffness to weight-conscious builds.', p14Feat: '<li>Total bespoke adjustment options for exact lengths and thread pitches</li><li>Extreme weight reduction while maximizing drivetrain steering stiffness</li><li>Premium matrix composite compression moulding technology</li>'
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            const data = langData[currentLang];
+
+            document.getElementById('langBtn').innerText = data.langBtn;
+            document.getElementById('heroSlogan').innerHTML = data.heroSlogan;
+            document.getElementById('aboutTitle').innerText = data.aboutTitle;
+            document.getElementById('aboutText').innerText = data.aboutText;
+            document.getElementById('serviceTitle').innerText = data.serviceTitle;
+            document.getElementById('sectionVehicles').innerText = data.sectionVehicles;
+            document.getElementById('sectionAccs').innerText = data.sectionAccs;
+            document.getElementById('contactBtn').innerText = data.contactBtn;
+
+            document.getElementById('srv1Title').innerText = data.srv1Title;
+            document.getElementById('srv1List').innerHTML = data.srv1List;
+            document.getElementById('srv2Title').innerText = data.srv2Title;
+            document.getElementById('srv2List').innerHTML = data.srv2List;
+            document.getElementById('srv3Title').innerText = data.srv3Title;
+            document.getElementById('srv3List').innerHTML = data.srv3List;
+            document.getElementById('srv4Title').innerText = data.srv4Title;
+            document.getElementById('srv4List').innerHTML = data.srv4List;
+
+            for (let i = 1; i <= 14; i++) {
+                const titleEl = document.getElementById(`p${i}Title`);
+                const descEl = document.getElementById(`p${i}Desc`);
+                const featEl = document.getElementById(`p${i}Feat`);
+
+                if (titleEl && data[`p${i}Title`]) titleEl.innerText = data[`p${i}Title`];
+                if (descEl && data[`p${i}Desc`]) descEl.innerText = data[`p${i}Desc`];
+                if (featEl && data[`p${i}Feat`]) featEl.innerHTML = data[`p${i}Feat`];
+            }
+        }
+    </script>
+</body>
+</html>
